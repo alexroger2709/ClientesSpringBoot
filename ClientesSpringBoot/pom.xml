@@ -1,0 +1,103 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+		<modelVersion>4.0.0</modelVersion>
+		<groupId>br.com.clientes</groupId>
+		<artifactId>clientes-spring-boot</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-parent -->
+		<parent>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-parent</artifactId>
+		    <version>2.2.4.RELEASE</version>
+		</parent>
+
+
+		<!-- dependencies space -->		
+		<dependencies>
+			<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter -->
+			<dependency>
+			    <groupId>org.springframework.boot</groupId>
+			    <artifactId>spring-boot-starter</artifactId>
+			</dependency>
+			
+			<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web -->
+			<dependency>
+			    <groupId>org.springframework.boot</groupId>
+			    <artifactId>spring-boot-starter-web</artifactId>
+			</dependency>
+			
+
+			<!-- spring-boot-starter-data-jpa -->
+			<dependency>
+			    <groupId>org.springframework.boot</groupId>
+			    <artifactId>spring-boot-starter-data-jpa</artifactId>
+			</dependency>
+
+
+			<!-- stater-data-rest -->
+			<dependency>
+			    <groupId>org.springframework.boot</groupId>
+			    <artifactId>spring-boot-starter-data-rest</artifactId>
+			</dependency>
+			
+
+			<!-- mysql connector -->
+			<dependency>
+			    <groupId>mysql</groupId>
+			    <artifactId>mysql-connector-java</artifactId>
+			</dependency>
+			
+
+			<!-- flyway version control -->
+			<dependency>
+			    <groupId>org.flywaydb</groupId>
+			    <artifactId>flyway-core</artifactId>
+			</dependency>
+
+
+			<!-- lombok -->			
+			<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+			</dependency>			
+			
+			
+		</dependencies>
+
+
+
+		<!-- build space -->
+		<build>
+			<plugins>
+				<plugin>
+					<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-maven-plugin -->
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-maven-plugin</artifactId>
+				</plugin>
+				
+				<plugin>
+					<groupId>org.flywaydb</groupId>
+					<artifactId>flyway-maven-plugin</artifactId>
+					<configuration>
+						<url>jdbc:mysql://localhost.localdomain:3306/clientes?useTimezone=true&amp;serverTimezone=UTC&amp;useSSL=false</url>
+						<user>root</user>
+						<password>admin123</password>
+					</configuration>
+					<dependencies>
+						<dependency>
+							<groupId>mysql</groupId>
+							<artifactId>mysql-connector-java</artifactId>
+							<version>${mysql.version}</version>
+							<exclusions>
+								<exclusion>
+									<artifactId>slf4j-api</artifactId>
+									<groupId>org.slf4j</groupId>
+								</exclusion>
+							</exclusions>
+						</dependency>
+					</dependencies>
+				</plugin>			
+				
+			</plugins>
+		</build>	
+</project>
