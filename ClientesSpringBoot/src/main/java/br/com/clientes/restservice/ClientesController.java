@@ -24,7 +24,7 @@ import br.com.clientes.service.ClienteService;
 
 @RestController
 @RequestMapping(value="/api/clientes/v1")
-@CrossOrigin("*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ClientesController {
 
 	private final ClienteService service;
