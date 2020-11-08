@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.clientes.data.model.ServicoPrestado;
 import br.com.clientes.representation.ServicoPrestadoRequest;
+import br.com.clientes.representation.ServicoPrestadoResponse;
 import br.com.clientes.service.ServicoPrestadoService;
 
 @RestController
@@ -32,8 +32,8 @@ public class ServicoPrestadoController {
 			produces = {"application/json","application/xml"}
 			)
 	@ResponseStatus(HttpStatus.CREATED)
-	public ServicoPrestado create(@RequestBody ServicoPrestadoRequest servicoPrestado) throws Exception {
-		ServicoPrestado ret = new ServicoPrestado();
+	public ServicoPrestadoResponse create(@RequestBody ServicoPrestadoRequest servicoPrestado) throws Exception {
+		ServicoPrestadoResponse ret = new ServicoPrestadoResponse();
 		ret = service.salvar(servicoPrestado);
 		return ret;
 	}

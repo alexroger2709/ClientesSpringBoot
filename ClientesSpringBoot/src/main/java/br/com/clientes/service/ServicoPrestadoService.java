@@ -10,6 +10,7 @@ import br.com.clientes.data.model.Cliente;
 import br.com.clientes.data.model.ServicoPrestado;
 import br.com.clientes.repository.ServicoPrestadoRepository;
 import br.com.clientes.representation.ServicoPrestadoRequest;
+import br.com.clientes.representation.ServicoPrestadoResponse;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -22,14 +23,15 @@ public class ServicoPrestadoService {
 	private final ClienteService clienteService;
 	
 
-	public ServicoPrestado salvar(ServicoPrestadoRequest servicoPrestadoRequest) throws Exception{
+	public ServicoPrestadoResponse salvar(ServicoPrestadoRequest servicoPrestadoRequest) throws Exception{
 		
 		Cliente cliente;
 		Integer id = null;
 		Integer idCliente;
 		BigDecimal valor;
 		LocalDate data;
-		ServicoPrestado ret = new ServicoPrestado();
+		ServicoPrestadoResponse ret = new ServicoPrestadoResponse();
+		ServicoPrestado servicoPrestado = new ServicoPrestado();
 
 		try {
 			if(servicoPrestadoRequest.getId()!=null) {
@@ -41,13 +43,22 @@ public class ServicoPrestadoService {
 			valor = new BigDecimal(servicoPrestadoRequest.getValor());
 			data = LocalDate.parse(servicoPrestadoRequest.getData(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 			
-			ret.setId(id);
-			ret.setCliente(cliente);
-			ret.setDescricao(servicoPrestadoRequest.getDescricao());
-			ret.setValor(valor);
-			ret.setData(data);
+			servicoPrestado.setId(id);
+			servicoPrestado.setCliente(cliente);
+			servicoPrestado.setDescricao(servicoPrestadoRequest.getDescricao());
+			servicoPrestado.setValor(valor);
+			servicoPrestado.setData(data);
 			
-			ret = repository.save(ret);
+			servicoPrestado = repository.save(servicoPrestado);
+
+			//return object
+			ret.setId(servicoPrestado.getId().toString());
+			ret.setIdCliente(servicoPrestado.getCliente().getId().toString());
+			ret.setDescricao(servicoPrestado.getDescricao());
+			ret.setValor(servicoPrestado.getValor().toString());
+			ret.setData(servicoPrestado.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+			
+			
 		}catch(Exception ex) {
 			throw new Exception(ex.getMessage());
 		}
