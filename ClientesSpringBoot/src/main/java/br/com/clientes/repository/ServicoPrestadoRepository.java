@@ -6,4 +6,5 @@ import br.com.clientes.data.model.ServicoPrestado;
 
 public interface ServicoPrestadoRepository extends JpaRepository<ServicoPrestado, Integer> {
 
+	
 }
