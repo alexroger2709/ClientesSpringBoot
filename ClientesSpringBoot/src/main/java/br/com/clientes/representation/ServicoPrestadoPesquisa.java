@@ -25,6 +25,10 @@ public class ServicoPrestadoPesquisa {
 	@Column(name="id_cliente")
 	private String idCliente;
 	
+	
+	@Column(name="nome")
+	private String nome;
+	
 
 	@Column(name="descricao")
 	private String descricao;

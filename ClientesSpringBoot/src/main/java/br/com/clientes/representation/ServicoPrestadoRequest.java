@@ -1,7 +1,7 @@
 package br.com.clientes.representation;
 
-import javax.persistence.Column;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -20,20 +20,23 @@ public class ServicoPrestadoRequest {
 	@JsonProperty(value = "id")
 	private String id;
 
-	
 	@JsonProperty(value = "idCliente")
+	@NotEmpty(message="{campo.cliente.obrigatorio}")
 	private String idCliente;
 	
-	
+
 	@JsonProperty(value = "descricao")
+	@NotEmpty(message="{campo.descricao.obrigatorio}")
 	private String descricao;
+
 	
-	
-	@Column(name="valor")
+	@JsonProperty(value = "valor")
+	@NotEmpty(message="{campo.valor.obrigatorio}")
 	private String valor;
 	
-	
+
 	@JsonProperty(value = "data")
+	@NotEmpty(message="{campo.data.obrigatorio}")
 	private String data;	
 	
 }

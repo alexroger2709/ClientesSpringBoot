@@ -10,7 +10,7 @@ import br.com.clientes.representation.ServicoPrestadoPesquisa;
 
 public interface ServicoPrestadoPesquisaRepository extends JpaRepository<ServicoPrestadoPesquisa, Integer> {
 
-	@Query(value = "select s.id, s.id_cliente, s.descricao, s.valor, s.data from\n"
+	@Query(value = "select s.id, s.id_cliente, c.nome, s.descricao, s.valor, s.data from\n"
 			+ "servicos s inner join clientes c on s.id_cliente = c.id\n"
 			+ "where lower(c.nome) like lower(:nome) and month(s.data) = :mes", nativeQuery = true)
 	public List<ServicoPrestadoPesquisa> pesquisar(
