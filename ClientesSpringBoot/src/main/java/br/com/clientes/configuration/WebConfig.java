@@ -14,7 +14,6 @@ import org.springframework.web.filter.CorsFilter;
 @Configuration
 public class WebConfig {
 
-	
 	@Bean
     public FilterRegistrationBean<CorsFilter> corsFilter() {
 
@@ -38,6 +37,5 @@ public class WebConfig {
 		
 		return filter;
 	}
-	
 	
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -86,6 +87,15 @@ public class UsuariosController {
 	public void delete(@PathVariable(value="id") String id) throws Exception {
 		service.delete(Integer.valueOf(id));
 	}
+
+	
+	@GetMapping(value = "/localizar/{login}",
+			produces = {"application/json","application/xml"}
+			)
+	public UserDetails findByUserName(@PathVariable(value="login") String login) throws Exception {
+		return service.loadUserByUsername(login);
+	}
+	
 	
 	
 }

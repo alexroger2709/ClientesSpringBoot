@@ -6,6 +6,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -13,7 +17,7 @@ import br.com.clientes.data.model.Usuario;
 import br.com.clientes.repository.UsuarioRepository;
 
 @Service
-public class UsuarioService {
+public class UsuarioService implements UserDetailsService {
 
 	private final UsuarioRepository repository;
 	
@@ -63,6 +67,23 @@ public class UsuarioService {
 		Usuario usuario = localizarPorId(usuarioId);
 		repository.delete(usuario);
 		return ResponseEntity.ok().build();
+	}
+
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		Usuario ret = new Usuario();
+		
+		ret = repository
+				.localizarUsuarioPorLogin(username)
+				.orElseThrow(() -> new UsernameNotFoundException("Login não encontrado"));
+		
+		return User
+			.builder()
+			.username(ret.getUsername())
+			.password(ret.getPassword())
+			.roles("USER")
+			.build();
 	}	
 	
 }
