@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import br.com.clientes.data.model.Usuario;
+import br.com.clientes.exception.UsuarioCadastroException;
 import br.com.clientes.repository.UsuarioRepository;
 
 @Service
@@ -28,6 +29,13 @@ public class UsuarioService implements UserDetailsService {
 
 	
 	public Usuario salvar(Usuario usuario) {
+		
+		boolean usuarioExistente = repository.existsByUsername(usuario.getUsername());
+
+		if(usuarioExistente) {
+			throw new UsuarioCadastroException(usuario.getUsername());
+		}
+		
 		Usuario ret = null;
 		ret = repository.save(usuario);
 		return ret;

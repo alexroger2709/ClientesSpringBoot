@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import br.com.clientes.data.model.Usuario;
+import br.com.clientes.exception.UsuarioCadastroException;
 import br.com.clientes.service.UsuarioService;
 
 @RestController
@@ -41,7 +43,12 @@ public class UsuariosController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public Usuario create(@RequestBody @Valid Usuario usuario) throws Exception {
 		Usuario ret = new Usuario();
-		ret = service.salvar(usuario);
+		
+		try {
+			ret = service.salvar(usuario);
+		}catch(UsuarioCadastroException ex) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage());
+		}
 		return ret;
 	}
 

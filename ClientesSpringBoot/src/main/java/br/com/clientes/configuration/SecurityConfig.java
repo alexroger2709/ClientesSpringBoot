@@ -43,19 +43,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 
-		/*
 		http
-			.csrf().disable()
 			.cors()
 		.and()
 			.sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-		*/
-		
-		http
-			.csrf().disable()
-			.sessionManagement()
-				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+
 	}
 	
 	@Bean

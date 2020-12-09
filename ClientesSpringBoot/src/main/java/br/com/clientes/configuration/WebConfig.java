@@ -14,8 +14,11 @@ import org.springframework.web.filter.CorsFilter;
 @Configuration
 public class WebConfig {
 
+	//CorsConfigurationSource corsConfigurationSource
+	
+	//public FilterRegistrationBean<CorsFilter> corsFilter
 	@Bean
-    public FilterRegistrationBean<CorsFilter> corsFilter() {
+    public FilterRegistrationBean<CorsFilter> simpleCorsFilter(){
 
 		List<String> origins = Arrays.asList("*");
 		List<String> methods = Arrays.asList("POST", "OPTIONS", "GET", "DELETE", "PUT");
@@ -23,9 +26,10 @@ public class WebConfig {
 		
         CorsConfiguration config = new CorsConfiguration();
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-
+        
         config.setAllowCredentials(true);
         config.setAllowedOrigins(origins);
+        config.addAllowedOrigin("*");
         config.setAllowedMethods(methods);
         config.setAllowedHeaders(headers);
         
@@ -36,6 +40,8 @@ public class WebConfig {
 		filter.setOrder(Ordered.HIGHEST_PRECEDENCE);
 		
 		return filter;
+		//return source;
+
 	}
 	
 }
